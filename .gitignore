@@ -1,0 +1,11 @@
+photos/
+photos.js
+private.js
+backend/Roster.private.gs
+backend/PASTE_ME.gs
+.DS_Store
+backend/Cover.private.gs
+host.html
+custom.private.json
+private-covers/
+private-audio/

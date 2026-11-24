@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>回到過去｜ITT 十週年南投聖誕派對</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Serif+TC:wght@500;700;900&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=20261124q">
+</head>
+<body>
+<div id="photo-bg" aria-hidden="true"></div>
+<div id="snow" aria-hidden="true"></div>
+<main id="app">
+
+  <!-- 0 沒有專屬連結 -->
+  <section class="screen" id="s-loading">
+    <div class="paper narrow center">
+      <p class="eyebrow">TIME MACHINE</p>
+      <h2 id="load-msg">時光機暖機中…</h2>
+      <button class="btn ghost" id="btn-reload" hidden>重新整理</button>
+    </div>
+  </section>
+
+  <section class="screen" id="s-picker">
+    <div class="paper narrow">
+      <p class="eyebrow" id="picker-eyebrow">PROTOTYPE</p>
+      <h2 id="picker-title">這是原型預覽</h2>
+      <p class="muted" id="picker-text">正式版每個人會拿到自己的專屬連結，不會看到這一頁。先選一個身分來試走流程。</p>
+      <div id="picker-list" class="chips"></div>
+    </div>
+  </section>
+
+  <!-- 1 信封 -->
+  <section class="screen active" id="s-envelope">
+    <p class="hint-top">你有一封來自 2016 年的信</p>
+    <button class="envelope" id="envelope" aria-label="打開信封">
+      <span class="env-back"></span>
+      <span class="env-letter">
+        <span class="env-letter-title">回到過去</span>
+        <span class="env-letter-sub">ITT 10th Anniversary</span>
+      </span>
+      <span class="env-front">
+        <span class="env-to">致 <b id="env-name"></b></span>
+        <span class="env-stamp">ITT<br>10</span>
+        <span class="env-postmark">KAOHSIUNG<br>2016.09</span>
+      </span>
+      <span class="env-flap"></span>
+      <span class="env-seal">拆</span>
+    </button>
+    <p class="hint-bottom" id="env-hint">點一下信封</p>
+  </section>
+
+  <!-- 2 邀請卡 -->
+  <section class="screen" id="s-invite">
+    <article class="paper card">
+      <p class="eyebrow">NSYSU · ITT · 2016 — 2026</p>
+      <h1><span class="h1-small">回到過去之</span>ITT 十週年<br>南投聖誕派對</h1>
+      <p class="dear">親愛的 <b class="me-name"></b>：</p>
+      <div class="letter">
+        <p>2016 年 9 月，一群背景各異的人，因為緣分在高雄相遇。世界這麼大，我們卻剛好坐進同一間教室。</p>
+        <p>人生有幾個十年？又有多少同學，畢業後還一直聯絡？</p>
+        <p>這一次，讓我們搭上時光機回到過去，聊聊從學生到社會人的這一路，聊聊我們是怎麼痛苦地長大的。</p>
+        <p>請帶著回到 2016 的心情赴約。這會是一個難忘又歡樂的聖誕節。</p>
+        <p class="sign">ITT 十週年快樂！</p>
+      </div>
+
+      <div class="polaroids" aria-hidden="true">
+        <figure class="polaroid wide r1"><div class="ph" id="cover-ph"></div><figcaption id="cover-cap">那一年・西子灣</figcaption></figure>
+        <figure class="polaroid r2"><div class="ph blank">?</div><figcaption>2026・南投</figcaption></figure>
+      </div>
+
+      <dl class="facts">
+        <div><dt>時間</dt><dd>2026/12/25（五）— 12/27（日）<small>三天兩夜</small></dd></div>
+        <div><dt>地點</dt><dd><span id="venue">南投 耕雲齋民宿</span><a id="map-link" target="_blank" rel="noopener">開啟 Google 地圖</a></dd></div>
+        <div><dt>距離出發</dt><dd><span id="countdown" class="countdown"></span></dd></div>
+      </dl>
+
+      <button class="btn primary" id="btn-accept">接受邀請，搭上時光機</button>
+    </article>
+  </section>
+
+  <!-- 3 登機證 -->
+  <section class="screen" id="s-pass">
+    <p class="hint-top">你的時光機登機證</p>
+    <div class="pass" id="pass">
+      <div class="pass-head"><span>TIME MACHINE AIRLINES</span><span>ITT 10TH</span></div>
+      <div class="pass-body">
+        <div class="pass-route">
+          <div><small>FROM</small><strong>KHH</strong><em>高雄 2016</em></div>
+          <div class="pass-plane">✈</div>
+          <div><small>TO</small><strong>NTO</strong><em>南投 2026</em></div>
+        </div>
+        <div class="pass-grid">
+          <div><small>PASSENGER 旅客</small><b class="me-name"></b></div>
+          <div><small>FLIGHT 航班</small><b>ITT2016</b></div>
+          <div><small>DATE 日期</small><b>25 DEC 2026</b></div>
+          <div><small>GATE 登機門</small><b id="pass-gate">耕雲齋</b></div>
+          <div><small>SEAT 座位</small><b id="pass-seat"></b></div>
+          <div><small>CLASS 艙等</small><b>FIRST CLASS</b><span class="pass-sub">放在第一位的朋友</span></div>
+        </div>
+      </div>
+      <div class="pass-stub"><div class="barcode"></div><small>行李限制：一件 1000 元內的心意</small></div>
+    </div>
+    <div class="row">
+      <button class="btn ghost" id="btn-savepass">存成圖片</button>
+      <button class="btn primary" id="btn-tobrief">行前說明</button>
+    </div>
+    <p class="muted center">存下來貼到群組，讓大家知道你上機了。</p>
+  </section>
+
+  <!-- 4 說明頁 -->
+  <section class="screen" id="s-brief">
+    <article class="paper">
+      <p class="eyebrow">BEFORE BOARDING</p>
+      <h2>行前說明</h2>
+      <p class="muted">為了讓這三天順利進行，請先讀完下面幾件事，確認後逐項打勾。</p>
+      <ul class="checklist" id="checklist">
+        <li><label><input type="checkbox"><span><b>帶 NSYSU 帽 T</b>主題是「回到過去」，這是大合照的必需品，請務必帶上。</span></label></li>
+        <li><label><input type="checkbox"><span><b>帶一件紅色或綠色毛衣</b>聖誕節拍照用，至少一件。</span></label></li>
+        <li><label><input type="checkbox"><span><b>帶一份聖誕交換禮物</b>方向可以是懷舊、可愛無用、看了會開心、窩心，或任何讓你覺得回到過去的東西。金額 1000 元以內，重點是心意，真的不要花大錢。</span></label></li>
+        <li><label><input type="checkbox"><span><b>事先完成填答</b>活動的每個環節都靠大家的答案，請在 <span class="deadline"></span> 前填完，之後還可以回來修改。</span></label></li>
+      </ul>
+      <button class="btn primary" id="btn-tofill" disabled>閱讀完畢，開始填答</button>
+    </article>
+  </section>
+
+  <!-- 5 問卷 -->
+  <section class="screen" id="s-form">
+    <article class="paper">
+      <div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
+      <p class="eyebrow" id="step-count"></p>
+      <h2 id="step-title"></h2>
+      <p class="muted" id="step-sub"></p>
+      <form id="step-body" novalidate></form>
+      <p class="error" id="step-error" role="alert"></p>
+      <div class="row">
+        <button class="btn ghost" id="btn-prev" type="button">上一步</button>
+        <button class="btn primary" id="btn-next" type="button">下一步</button>
+      </div>
+      <p class="muted center" id="save-note">內容會自動暫存在這支裝置。</p>
+    </article>
+  </section>
+
+  <!-- 6 完成 -->
+  <section class="screen" id="s-done">
+    <article class="paper">
+      <p class="eyebrow">BOARDING COMPLETE</p>
+      <h2><span class="me-name"></span>，收到了！</h2>
+      <p class="muted">12/25 南投見。在 <span class="deadline"></span> 前都可以回來修改，「我有話想說」可以一直追加到出發前一天。</p>
+      <h3>誰已經上機了</h3>
+      <div id="wall" class="wall"></div>
+      <div class="col">
+        <button class="btn primary" id="btn-more">再追加一句「我有話想說」</button>
+        <button class="btn ghost" id="btn-edit">修改我的答案</button>
+        <button class="btn ghost" id="btn-pass">看我的登機證</button>
+      </div>
+    </article>
+  </section>
+</main>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal-box">
+    <img id="modal-img" alt="時光機登機證">
+    <p class="muted center">長按圖片即可儲存</p>
+    <div class="row"><a class="btn ghost" id="modal-dl" download="ITT10-boarding-pass.png">下載</a><button class="btn primary" id="modal-close">關閉</button></div>
+  </div>
+</div>
+
+<script src="music.js?v=20261124q"></script>
+<script src="config.js?v=20261124q"></script>
+<script src="private.js" onerror="void 0"></script>
+<script src="names.js?v=20261124q"></script>
+<script src="data.js?v=20261124q"></script>
+<script src="app.js?v=20261124q"></script>
+</body>
+</html>
