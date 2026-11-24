@@ -122,7 +122,9 @@
       if (info.song) songLabel = info.song;
       // 背景音樂：下載加密的音檔，用這個人資料裡的鑰匙解開，交給播放器。
       if (info.a) {
-        Music.setSource(fetch(info.a.f).then(r => { if (!r.ok) throw new Error('audio'); return r.arrayBuffer(); }).then(async buf => {
+        const grab = url => fetch(url).then(r => { if (!r.ok) throw new Error('audio'); return r.arrayBuffer(); });
+        // 先走傳檔服務（快），失敗才退回本站的同一個檔（慢）。
+        Music.setSource((info.a.u ? grab(info.a.u).catch(() => grab(info.a.f)) : grab(info.a.f)).then(async buf => {
           const k = await crypto.subtle.importKey('raw', b64(info.a.k), 'AES-GCM', false, ['decrypt']);
           const b = new Uint8Array(buf);
           const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b.slice(0, 12) }, k, b.slice(12));

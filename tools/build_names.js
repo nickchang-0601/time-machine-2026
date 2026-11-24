@@ -21,18 +21,16 @@ const seal = (key, buf) => {
   const c = crypto.createCipheriv('aes-256-gcm', key, iv);
   return Buffer.concat([iv, c.update(buf), c.final(), c.getAuthTag()]);
 };
-// 背景音樂（選用）：private-audio/song.mp3。整首只加密一份，解開它的鑰匙放在每個人的加密資料裡，
-// 所以只有拿到專屬連結的人聽得到；原始音檔不進程式碼庫。
-const mediaDir = require('path').join(root, 'media');
-fs.mkdirSync(mediaDir, { recursive: true });
-for (const f of fs.readdirSync(mediaDir)) if (f.endsWith('.bin')) fs.unlinkSync(require('path').join(mediaDir, f));
+// 背景音樂（選用）：音檔只加密一次，放在 media/；鑰匙和它所在的版本記在本機的 private-audio/key.json。
+// 這裡只把「去哪裡抓、用什麼鑰匙解」寫進每個人的加密資料，所以只有拿到專屬連結的人聽得到。
+// u 是走檔案傳輸服務的網址（快），f 是同一個檔在本站的路徑（備用）。
 let audio = null;
-const songFile = ['song.m4a', 'song.mp3'].find(f => fs.existsSync(require('path').join(root, 'private-audio', f)));
-const songPath = songFile ? require('path').join(root, 'private-audio', songFile) : null;
-if (songPath) {
-  const k = crypto.randomBytes(32), name = 'media/' + crypto.randomBytes(8).toString('hex') + '.bin';
-  fs.writeFileSync(require('path').join(root, name), seal(k, fs.readFileSync(songPath)));
-  audio = { f: name, k: k.toString('base64'), t: songFile.endsWith('.m4a') ? 'audio/mp4' : 'audio/mpeg' };
+const keyPath = require('path').join(root, 'private-audio', 'key.json');
+if (fs.existsSync(keyPath)) {
+  const j = JSON.parse(fs.readFileSync(keyPath, 'utf8'));
+  if (j.commit && fs.existsSync(require('path').join(root, j.f))) {
+    audio = { u: 'https://cdn.jsdelivr.net/gh/nickchang-0601/time-machine-2026@' + j.commit + '/' + j.f, f: j.f, k: j.k, t: j.t };
+  }
 }
 const items = {};
 for (const line of csv) {
